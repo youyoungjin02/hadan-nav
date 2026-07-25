@@ -25,10 +25,12 @@ export const busan: Station = {
   calibrated: true,
 
   nodes: [
-    /* ---------- 1F KTX 대합실 (짐캐리) ---------- */
-    nd("ZIM", "짐캐리 보관 · 대여", "1F", 49.2, 35.3, "FACILITY"),
-    nd("ZIM_L2", "KTX 1F 대합실 (GATE5)", "1F", 46.0, 37.0),
-    nd("ZIM_L1", "6번 출구 연결통로", "1F", 40.0, 34.0),
+    /* ---------- 1F KTX 대합실 ---------- */
+    nd("ZIM", "짐캐리 보관 · 대여", "1F", 48.4, 35.0, "FACILITY"),
+    nd("WC_1FA", "화장실 (1F · GATE3,4)", "1F", 48.6, 36.6, "TOILET"),
+    nd("WC_1FB", "화장실 (1F · GATE2)", "1F", 54.2, 36.5, "TOILET"),
+    nd("KTX_C", "KTX 1F 대합실 (GATE5)", "1F", 45.8, 36.8),
+    nd("KTX_G6", "GATE6 · 6번 출구 연결통로", "1F", 39.5, 27.6),
 
     /* ---------- B1 출구 ---------- */
     nd("EXIT_1", "1번 출구", "B1", 94.6, 66.4, "EXIT", "1"),
@@ -50,7 +52,7 @@ export const busan: Station = {
 
     /* ---------- B1 편의시설 ---------- */
     nd("CUST", "고객센터(역무실)", "B1", 49.7, 66.5, "FACILITY"),
-    nd("WC", "화장실 (남 · 여)", "B1", 68.5, 71.0, "TOILET"),
+    nd("WC", "화장실 (B1 대합실)", "B1", 68.5, 71.0, "TOILET"),
     nd("MEET", "만남의 장소", "B1", 39.5, 61.0, "FACILITY"),
     nd("TICKET", "승차권 발매 · 카드충전", "B1", 28.7, 56.5, "FACILITY"),
 
@@ -78,8 +80,9 @@ export const busan: Station = {
   ],
 
   edges: [
-    /* 1F 짐캐리 연결 */
-    eg("EXIT_6", "ZIM_L1"), eg("ZIM_L1", "ZIM_L2"), eg("ZIM_L2", "ZIM"),
+    /* 1F KTX 대합실 연결 (6번 출구 → GATE6 → 짐캐리) */
+    eg("EXIT_6", "KTX_G6"), eg("KTX_G6", "KTX_C"), eg("KTX_C", "ZIM"),
+    eg("ZIM", "WC_1FA"), eg("WC_1FA", "WC_1FB"),
 
     /* B1 대합실 */
     eg("K1", "K2"), eg("K2", "K3"), eg("K3", "K4"),
@@ -112,6 +115,6 @@ export const busan: Station = {
 
   qrPoints: [
     "EXIT_1", "EXIT_2", "EXIT_3", "EXIT_4", "EXIT_5", "EXIT_6", "EXIT_7",
-    "K4", "P1_C", "P2_C", "ZIM",
+    "K4", "P1_C", "P2_C", "ZIM", "KTX_C",
   ],
 };
