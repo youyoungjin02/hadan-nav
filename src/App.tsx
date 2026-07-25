@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import {
   MapPin, Navigation, DoorOpen, Train, Bath, MoveVertical, ArrowUpDown,
   ChevronRight, RotateCcw, Printer, X, QrCode, Clock, Ruler, Check,
-  ChevronLeft, Package,
+  ChevronLeft, Package, Luggage,
 } from "lucide-react";
 import { KIND_STYLE, findNearest, findRoute, nodeOf, type Route } from "./lib/graph";
 import { getStation } from "./stations";
@@ -286,10 +286,18 @@ export default function App() {
                         to === v.id ? "" : "bg-white ring-1 ring-slate-200"
                       } ${!from ? "opacity-40" : "active:scale-[0.98]"}`}
                       style={to === v.id ? { background: BRAND.primary } : undefined}>
-                      <span className="w-9 h-9 rounded-xl bg-slate-100 flex items-center justify-center">
-                        <Package className="w-4 h-4" style={{ color: BRAND.sub }} />
+                      <span className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
+                        style={{ background: v.name.includes("짐캐리") ? `${BRAND.primary}33` : "#F1F3F6" }}>
+                        {v.name.includes("짐캐리")
+                          ? <Luggage className="w-4 h-4" style={{ color: "#8A6D00" }} />
+                          : <Package className="w-4 h-4" style={{ color: BRAND.sub }} />}
                       </span>
-                      <span className="font-bold text-[14px]" style={{ color: BRAND.ink }}>{v.name}</span>
+                      <span className="flex-1 min-w-0 text-left">
+                        <span className="block font-bold text-[14px] truncate" style={{ color: BRAND.ink }}>{v.name}</span>
+                        <span className="block text-[10.5px]" style={{ color: to === v.id ? "#6B5B00" : BRAND.sub }}>
+                          {v.floor}
+                        </span>
+                      </span>
                       <ChevronRight className="w-4 h-4 ml-auto" style={{ color: BRAND.sub }} />
                     </button>
                   ))}
